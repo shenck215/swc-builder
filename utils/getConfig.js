@@ -6,7 +6,7 @@ const getConfig = () => {
 	const configPath = getProjectPath("bpoBuild.config.js");
 	if (fs.existsSync(configPath)) {
 		const propsConfig = require(configPath);
-		console.log(propsConfig)
+		
 		return {
 			...config,
 			...propsConfig,
