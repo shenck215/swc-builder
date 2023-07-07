@@ -65,8 +65,8 @@ gulp.task("tsc", (done) => {
 	gulp
 		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`])
 		.pipe(tsc(getTsCompilerOptions()))
-		.dts.on("error", () => {})
-		.pipe(gulp.dest(tsOutput))
+		.on("error", () => {})
+		.dts.pipe(gulp.dest(tsOutput))
 		.on("end", () => {
 			done();
 			const times = getDiffTime(start);
