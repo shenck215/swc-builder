@@ -24,9 +24,6 @@ const typeRoots = [
 	"node_modules/@types",
 	"../node_modules/@types",
 	"../../node_modules/@types",
-	"global.d.ts",
-	"../global.d.ts",
-	"../../global.d.ts",
 ];
 
 if (propsTypeRoots && checkType(propsTypeRoots) === "Array") {

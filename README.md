@@ -27,5 +27,10 @@ module.exports = {
   style: false,
   // 是否输出 .d.ts，值为字符串，则覆盖默认文件夹名(types)，默认 false
   ts: true,
+  // 是否输出 .d.ts，值为字符串，则覆盖默认文件夹名(types)，默认 false
+  ty: true,
+	// 额外指定用于 TypeScript 编译器在查找全局类型定义文件（也就是 .d.ts 文件）时应该搜索的目录，
+	// 内置已指定了当前项目及往上两层的 node_modules/@types
+	typeRoots: ['./typings'],
 };
 ```
