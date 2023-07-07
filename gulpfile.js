@@ -6,6 +6,7 @@ const tsc = require("gulp-typescript");
 const postcss = require("gulp-postcss");
 const less = require("postcss-less");
 const autoprefixer = require("autoprefixer");
+const checkType = require("./utils/checkType");
 const getConfig = require("./utils/getConfig");
 const getDiffTime = require("./utils/getDiffTime");
 const getSwcOptions = require("./utils/getSwcOptions");
@@ -13,11 +14,26 @@ const getTsCompilerOptions = require("./utils/getTsCompilerOptions");
 
 const config = getConfig();
 
-const { baseUrl, es, lib, style, ts } = config;
+const { baseUrl, es, lib, style, ts, typeRoots: propsTypeRoots } = config;
 
-const esOutput = typeof es === "string" ? es : "./es";
-const libOutput = typeof lib === "string" ? lib : "./lib";
-const tsOutput = typeof ts === "string" ? ts : "./types";
+const esOutput = checkType(es) === "String" ? es : "./es";
+const libOutput = checkType(lib) === "String" ? lib : "./lib";
+const tsOutput = checkType(ts) === "String" ? ts : "./types";
+
+const typeRoots = [
+	"node_modules/@types",
+	"../node_modules/@types",
+	"../../node_modules/@types",
+	"global.d.ts",
+	"../global.d.ts",
+	"../../global.d.ts",
+];
+
+if (propsTypeRoots && checkType(propsTypeRoots) === "Array") {
+	propsTypeRoots.forEach((item) => {
+		typeRoots.push(item);
+	});
+}
 
 let startTime = 0;
 
@@ -64,7 +80,13 @@ gulp.task("tsc", (done) => {
 	const start = process.hrtime();
 	gulp
 		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`])
-		.pipe(tsc(getTsCompilerOptions()))
+		.pipe(
+			tsc(
+				getTsCompilerOptions({
+					typeRoots,
+				})
+			)
+		)
 		.on("error", () => {})
 		.dts.pipe(gulp.dest(tsOutput))
 		.on("end", () => {
