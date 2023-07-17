@@ -1,9 +1,13 @@
 const getSwcOptions = ({ type, coreJs }) => ({
-	env: {
-		targets: "> 0.25%, last 2 versions",
-		mode: "usage",
-		...(coreJs ? { coreJs } : {}),
-	},
+	...(coreJs
+		? {
+				env: {
+					targets: "> 0.25%, last 2 versions",
+					mode: "usage",
+					coreJs,
+				},
+		  }
+		: {}),
 	jsc: {
 		target: "es2015",
 		parser: {
