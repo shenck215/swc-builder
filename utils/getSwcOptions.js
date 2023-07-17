@@ -1,8 +1,8 @@
-const getSwcOptions = (type) => ({
+const getSwcOptions = ({ type, coreJs }) => ({
 	env: {
 		targets: "> 0.25%, last 2 versions",
 		mode: "usage",
-		coreJs: "3.31.0",
+		...(coreJs ? { coreJs } : {}),
 	},
 	jsc: {
 		target: "es2015",

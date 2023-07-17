@@ -32,5 +32,7 @@ module.exports = {
 	// 额外指定用于 TypeScript 编译器在查找全局类型定义文件（也就是 .d.ts 文件）时应该搜索的目录，
 	// 内置已指定了当前项目及往上两层的 node_modules/@types
 	typeRoots: ['./typings'],
+  // 是否开启core-js，完善打包参数兼容性，开启时需指定core-js版本，默认false
+  coreJs: '3.31.0'
 };
 ```

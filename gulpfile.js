@@ -14,7 +14,15 @@ const getTsCompilerOptions = require("./utils/getTsCompilerOptions");
 
 const config = getConfig();
 
-const { baseUrl, es, lib, style, ts, typeRoots: propsTypeRoots } = config;
+const {
+	baseUrl,
+	es,
+	lib,
+	style,
+	ts,
+	typeRoots: propsTypeRoots,
+	coreJs,
+} = config;
 
 const esOutput = checkType(es) === "String" ? es : "./es";
 const libOutput = checkType(lib) === "String" ? lib : "./lib";
@@ -45,7 +53,7 @@ const build = (type, cb) => {
 			`${baseUrl}/**/*.ts`,
 			`!${baseUrl}/**/*.d.ts`,
 		])
-		.pipe(swc(getSwcOptions(type)))
+		.pipe(swc(getSwcOptions({ type, coreJs })))
 		.on("error", () => {})
 		.pipe(gulp.dest(type === "es" ? esOutput : libOutput))
 		.on("end", () => {
