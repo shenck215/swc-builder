@@ -1,4 +1,29 @@
-const getSwcOptions = ({ type, coreJs }) => ({
+const checkType = require("./checkType");
+
+const moduleTypes = {
+	es: "es6",
+	lib: "commonjs",
+	amd: "amd",
+	umd: "umd",
+};
+
+const getAmdConfig = (type, moduleId) => {
+	if (type === "amd" && moduleId) {
+		return {
+			moduleId,
+		};
+	}
+	return {};
+};
+
+const getUmdConfig = (type, globals) => {
+	if (type === "umd" && checkType(globals) === "Object") {
+		return globals;
+	}
+	return {};
+};
+
+const getSwcOptions = ({ type, coreJs, moduleId, globals }) => ({
 	...(coreJs
 		? {
 				env: {
@@ -19,9 +44,17 @@ const getSwcOptions = ({ type, coreJs }) => ({
 				runtime: "automatic",
 			},
 		},
+		minify: {
+			compress: {
+				unused: true,
+			},
+			mangle: true,
+		},
 	},
 	module: {
-		type: type === "es" ? "es6" : "commonjs",
+		type: moduleTypes[type],
+		...getAmdConfig(type, moduleId),
+		...getUmdConfig(type, globals),
 		// These are defaults.
 		strict: false,
 		strictMode: true,
@@ -29,7 +62,7 @@ const getSwcOptions = ({ type, coreJs }) => ({
 		noInterop: false,
 	},
 
-	// minify: true,
+	minify: true,
 });
 
 module.exports = getSwcOptions;

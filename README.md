@@ -10,6 +10,7 @@
 #### Get Started
 
 1. 安装依赖 `npm i @jy-bpo/builder`
+1. 安装依赖 `npm i core-js` 版本号根据需要指定
 2. 新增 `bpoBuild.config.js` 配置文件
 3. 执行打包命令 `bpoBuilder`
 
@@ -23,6 +24,17 @@ module.exports = {
   es: true,
   // 是否输出 commonjs，值为字符串，则覆盖默认文件夹名(lib)，默认 false
   lib: true,
+  // 是否输出 amd，值为字符串，则覆盖默认文件夹名(amd)，默认 false
+  amd: false,
+  // 输出一个具有指定名称的 AMD 模块，加载此模块时，你可以使用该名称来引用它，默认 ''
+  moduleId: 'foo',
+  // 是否输出 umd，值为字符串，则覆盖默认文件夹名(umd)，默认 false
+  umd: false,
+  // 允许你定义一些全局变量，这些变量在 UMD 模块中可以被访问，默认 {}
+  globals: {
+    "jquery": "$",
+    "lodash": "_"
+  },
   // 是否对 less 文件进行处理，并输入出到 es/lib 文件夹下，默认 false
   style: false,
   // 是否输出 .d.ts，值为字符串，则覆盖默认文件夹名(types)，默认 false
