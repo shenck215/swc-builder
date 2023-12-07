@@ -8,4 +8,8 @@ module.exports = {
 	globals: {},
 	style: false,
 	ts: false,
+	tsConfig: {
+		typeRoots: [],
+		paths: {}
+	}
 };

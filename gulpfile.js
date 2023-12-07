@@ -24,7 +24,7 @@ const {
 	globals,
 	style,
 	ts,
-	typeRoots: propsTypeRoots,
+	tsConfig,
 	coreJs,
 } = config;
 
@@ -41,6 +41,11 @@ const outputs = {
 	umd: umdOutput,
 	ts: tsOutput,
 };
+
+const {
+	typeRoots: propsTypeRoots,
+	paths,
+} = tsConfig
 
 const typeRoots = [
 	"node_modules/@types",
@@ -111,6 +116,7 @@ gulp.task("tsc", (done) => {
 			tsc(
 				getTsCompilerOptions({
 					typeRoots,
+					paths,
 				})
 			)
 		)

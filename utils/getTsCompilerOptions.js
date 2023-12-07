@@ -1,6 +1,6 @@
 const getProjectPath = require("./getProjectPath");
 
-const getTsCompilerOptions = ({ typeRoots: propsTypeRoots }) => {
+const getTsCompilerOptions = ({ typeRoots: propsTypeRoots, paths }) => {
 	const typeRoots = propsTypeRoots.map((item) => getProjectPath(item));
 
 	return {
@@ -21,6 +21,7 @@ const getTsCompilerOptions = ({ typeRoots: propsTypeRoots }) => {
 		resolveJsonModule: true, // 允许导入 JSON 模块
 		skipLibCheck: true, // 跳过类型声明文件（.d.ts 文件）的类型检查
 		typeRoots,
+		paths,
 	};
 };
 
