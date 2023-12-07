@@ -106,7 +106,7 @@ gulp.task("tsc", (done) => {
 	console.log(chalk.yellow("Start generating type file..."));
 	const start = process.hrtime();
 	gulp
-		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`])
+		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`, `!${baseUrl}/**/*.style.ts`])
 		.pipe(
 			tsc(
 				getTsCompilerOptions({
