@@ -9,7 +9,7 @@ const getTsCompilerOptions = ({ typeRoots: propsTypeRoots }) => {
 		target: "ES5", // 指定编译后的 JavaScript 版本为 ES5
 		module: "ESNext", // 指定生成的模块使用 ESNext 格式
 		preserveConstEnums: true, // 保留 const enum 声明
-		moduleResolution: "node", // 模块解析策略为 Node.js 风格
+		moduleResolution: "NodeNext", // 模块解析策略为 Node.js 风格
 		experimentalDecorators: false, // 不启用实验性的装饰器特性
 		noImplicitAny: false, // 允许隐式的 any 类型
 		allowSyntheticDefaultImports: true, // 允许从没有默认导出的模块中导入默认成员
