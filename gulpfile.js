@@ -18,10 +18,6 @@ const {
 	baseUrl,
 	es,
 	lib,
-	amd,
-	moduleId,
-	umd,
-	globals,
 	style,
 	ts,
 	tsConfig,
@@ -30,17 +26,7 @@ const {
 
 const esOutput = checkType(es) === "String" ? es : "./es";
 const libOutput = checkType(lib) === "String" ? lib : "./lib";
-const amdOutput = checkType(amd) === "String" ? amd : "./amd";
-const umdOutput = checkType(umd) === "String" ? umd : "./umd";
 const tsOutput = checkType(ts) === "String" ? ts : "./types";
-
-const outputs = {
-	es: esOutput,
-	lib: libOutput,
-	amd: amdOutput,
-	umd: umdOutput,
-	ts: tsOutput,
-};
 
 const {
 	typeRoots: propsTypeRoots,
@@ -72,9 +58,9 @@ const build = (type, cb) => {
 			`${baseUrl}/**/*.ts`,
 			`!${baseUrl}/**/*.d.ts`,
 		])
-		.pipe(swc(getSwcOptions({ type, coreJs, moduleId, globals })))
+		.pipe(swc(getSwcOptions({ type, coreJs })))
 		.on("error", () => {})
-		.pipe(gulp.dest(outputs[type]))
+		.pipe(gulp.dest(type === "es" ? esOutput : libOutput))
 		.on("end", () => {
 			cb();
 			const times = getDiffTime(start);
@@ -87,7 +73,7 @@ const build = (type, cb) => {
 
 gulp.task("clean", (done) => {
 	startTime = process.hrtime();
-	del.sync(Object.values(outputs));
+	del.sync([esOutput, libOutput, tsOutput]);
 	done();
 });
 
@@ -99,19 +85,11 @@ gulp.task("swc:lib", (done) => {
 	build("lib", done);
 });
 
-gulp.task("swc:amd", (done) => {
-	build("amd", done);
-});
-
-gulp.task("swc:umd", (done) => {
-	build("umd", done);
-});
-
 gulp.task("tsc", (done) => {
 	console.log(chalk.yellow("Start generating type file..."));
 	const start = process.hrtime();
 	gulp
-		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`, `!${baseUrl}/**/*.style.ts`])
+		.src([`${baseUrl}/**/*.tsx`, `${baseUrl}/**/*.ts`])
 		.pipe(
 			tsc(
 				getTsCompilerOptions({
@@ -170,14 +148,6 @@ if (es) {
 
 if (lib) {
 	tasks.push("swc:lib");
-}
-
-if (amd) {
-	tasks.push("swc:amd");
-}
-
-if (umd) {
-	tasks.push("swc:umd");
 }
 
 if (style) {
