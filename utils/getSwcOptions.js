@@ -29,7 +29,7 @@ const getSwcOptions = ({ type, coreJs }) => ({
 		noInterop: false,
 	},
 
-	// minify: true,
+	minify: true,
 });
 
 module.exports = getSwcOptions;
