@@ -1,6 +1,10 @@
 const getProjectPath = require("./getProjectPath");
 
-const getTsCompilerOptions = ({ typeRoots: propsTypeRoots, paths }) => {
+const getTsCompilerOptions = ({
+	typeRoots: propsTypeRoots,
+	paths,
+	compilerOptions,
+}) => {
 	const typeRoots = propsTypeRoots.map((item) => getProjectPath(item));
 
 	return {
@@ -22,6 +26,7 @@ const getTsCompilerOptions = ({ typeRoots: propsTypeRoots, paths }) => {
 		skipLibCheck: true, // 跳过类型声明文件（.d.ts 文件）的类型检查
 		typeRoots,
 		paths,
+		...compilerOptions,
 	};
 };
 

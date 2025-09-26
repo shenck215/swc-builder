@@ -1,6 +1,6 @@
 {
-  "name": "@jy-bpo/builder",
-  "version": "0.2.1",
+  "name": "swc-builder",
+  "version": "0.2.2",
   "description": "",
   "main": "index.js",
   "scripts": {},
@@ -11,7 +11,7 @@
     "less"
   ],
   "bin": {
-    "bpoBuilder": "bin/index.js"
+    "swcBuilder": "bin/index.js"
   },
   "author": "shenck<shenck1807@joyowo.com>",
   "license": "ISC",

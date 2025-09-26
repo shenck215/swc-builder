@@ -1,4 +1,4 @@
-### bpoBuilder
+### swcBuilder
 
 —————————
 
@@ -9,11 +9,11 @@
 
 #### Get Started
 
-1. 安装依赖 `npm i @jy-bpo/builder`
-2. 新增 `bpoBuild.config.js` 配置文件
-3. 执行打包命令 `bpoBuilder`
+1. 安装依赖 `npm i swc-builder`
+2. 新增 `swcBuild.config.js` 配置文件
+3. 执行打包命令 `swcBuilder`
 
-配置文件 `bpoBuild.config.js` 例子：
+配置文件 `swcBuild.config.js` 例子：
 
 ```js
 module.exports = {

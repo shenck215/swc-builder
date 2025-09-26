@@ -31,6 +31,7 @@ const tsOutput = checkType(ts) === "String" ? ts : "./types";
 const {
 	typeRoots: propsTypeRoots,
 	paths,
+	compilerOptions,
 } = tsConfig
 
 const typeRoots = [
@@ -95,6 +96,7 @@ gulp.task("tsc", (done) => {
 				getTsCompilerOptions({
 					typeRoots,
 					paths,
+					compilerOptions,
 				})
 			)
 		)
